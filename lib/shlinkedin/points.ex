@@ -480,8 +480,13 @@ defmodule Shlinkedin.Points do
 
   defp calc_pct_increase([nil, nil]), do: 0.0
 
-  defp calc_pct_increase([now, last]),
-    do: ((now.amount / last.amount - 1) * 100) |> Float.round(2)
+  defp calc_pct_increase([now, last]) do
+    if last == nil do
+      1_000_000.0
+    else
+      ((now.amount / last.amount - 1) * 100) |> Float.round(2)
+    end
+  end
 
   defp get_last_two_stats() do
     today =
